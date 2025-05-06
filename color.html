@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RGB to Hex Color Visualizer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f4f4f4;
+    }
+    .color-box {
+      width: 150px;
+      height: 150px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      margin-bottom: 1rem;
+    }
+    .slider-group {
+      margin: 1rem 0;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    .output {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎨 RGB to Hex Color Visualizer</h1>
+
+  <div class="color-box" id="colorBox"></div>
+
+  <div class="slider-group">
+    <label>Red: <span id="redVal">157</span></label>
+    <input type="range" id="red" min="0" max="255" value="157">
+  </div>
+  <div class="slider-group">
+    <label>Green: <span id="greenVal">234</span></label>
+    <input type="range" id="green" min="0" max="255" value="234">
+  </div>
+  <div class="slider-group">
+    <label>Blue: <span id="blueVal">82</span></label>
+    <input type="range" id="blue" min="0" max="255" value="82">
+  </div>
+
+  <div class="output">
+    RGB: <span id="rgbText">rgb(157, 234, 82)</span><br>
+    Hex: <span id="hexText">#9DEA52</span>
+  </div>
+
+  <script>
+    const redSlider = document.getElementById("red");
+    const greenSlider = document.getElementById("green");
+    const blueSlider = document.getElementById("blue");
+    const colorBox = document.getElementById("colorBox");
+    const rgbText = document.getElementById("rgbText");
+    const hexText = document.getElementById("hexText");
+
+    const redVal = document.getElementById("redVal");
+    const greenVal = document.getElementById("greenVal");
+    const blueVal = document.getElementById("blueVal");
+
+    function toHex(value) {
+      let hex = Number(value).toString(16);
+      return hex.length === 1 ? "0" + hex : hex;
+    }
+
+    function updateColor() {
+      const r = redSlider.value;
+      const g = greenSlider.value;
+      const b = blueSlider.value;
+
+      redVal.textContent = r;
+      greenVal.textContent = g;
+      blueVal.textContent = b;
+
+      const hex = "#" + toHex(r) + toHex(g) + toHex(b);
+      const rgb = `rgb(${r}, ${g}, ${b})`;
+
+      colorBox.style.backgroundColor = rgb;
+      rgbText.textContent = rgb;
+      hexText.textContent = hex.toUpperCase();
+    }
+
+    redSlider.addEventListener("input", updateColor);
+    greenSlider.addEventListener("input", updateColor);
+    blueSlider.addEventListener("input", updateColor);
+
+    updateColor(); // initialize
+  </script>
+
+</body>
+</html>
